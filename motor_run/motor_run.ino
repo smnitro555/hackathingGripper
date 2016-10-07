@@ -3,8 +3,8 @@
 
 // using a 200-step motor (most common)
 // pins used are DIR, STEP, MS1, MS2, MS3 in that order
-A4988 stepper(200, 4, 3);
-A4988 pincer_stepper(200, 9, 5);
+A4988 stepper(200, 3, 2);
+A4988 pincer_stepper(200, 9, 8);
 
 int arm1Position = 0;
 int arm2Position = 0;

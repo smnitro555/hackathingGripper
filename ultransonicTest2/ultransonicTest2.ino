@@ -12,7 +12,7 @@
  */
 
 
-#define echoPin 7 // Echo Pin
+#define echoPin 12 // Echo Pin
 #define trigPin 13 // Trigger Pin
 #define LEDPin 12 // Onboard LED
 
