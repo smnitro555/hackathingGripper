@@ -60,12 +60,7 @@ void loop() {
 
   } else {
     setColor(80, 0, 80);  // purple
-    Serial.println("Purple");
   }
-
-  Serial.println("Distance is " + String(distance));
-
-
   delay(500);
 } 
 
