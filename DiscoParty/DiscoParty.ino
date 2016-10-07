@@ -32,7 +32,7 @@ int bookHeight = 10;
 int waterBottleHeight = 15;
     // Limit Switch Set-Ups
 int limitPincerPin = 38;
-int limitUpperBarPin = 40;
+int limitUpperBarPin = 36;
     // Trigger Input
 int triggerInputPin = 36;
 
