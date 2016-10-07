@@ -15,12 +15,9 @@ int bluePin = 7; //this sets the blue led pin
 int fsrAnalogPin1 = 0; // FSR is connected to analog 0
 int fsrAnalogPin2 = 1; // FSR is connected to analog 1
 int fsrAnalogPin3 = 2; // FSR is connected to analog 2
-int fsrReading1;
-int fsrReading2;
-int fsrReading3;
+int fsrReading1, fsrReading2, fsrReading3
     // Variables for Arm Control
-int arm1Position = 0;
-int arm2Position = 0;
+int arm1Position, arm2Position;
     // Variables for Ultrasonic
 int maximumRange = 400; // Maximum range needed
 int minimumRange = 0; // Minimum range needed
@@ -34,10 +31,10 @@ int tomatoHeight = 20;
 int bookHeight = 10;
 int waterBottleHeight = 15;
     // Limit Switch Set-Ups
-int limitPincer = 38;
-int limitUpperBar = 40;
+int limitPincerPin = 38;
+int limitUpperBarPin = 40;
     // Trigger Input
-int triggerInput = 36;
+int triggerInputPin = 36;
 
 
 
@@ -46,20 +43,23 @@ void setup() {
     pinMode(redPin, OUTPUT);
     pinMode(greenPin, OUTPUT);
     pinMode(bluePin, OUTPUT);  
+    
     // Limit Switch Initialization
-    pinMode(limitPincer, INPUT);
-    pinMode(limitUpperBar, INPUT);
+    pinMode(limitPincerPin, INPUT);
+    pinMode(limitUpperBarPin, INPUT);
+    
     // Input Signal Initialization
-    pinMode(triggerInput, INPUT);
+    pinMode(triggerInputPin, INPUT);
+    
     // Set target motor RPM to 1RPM
     stepper.setRPM(200);
     pincer_stepper.setRPM(200);
-//     Set full speed mode (microstepping also works for smoother hand movement
-//    stepper.setMicrostep(1);
-    Serial.begin(9600);
+
     // Ultrasonic Initialization
     pinMode(trigPin, OUTPUT);
     pinMode(echoPin, INPUT);
+    
+    Serial.begin(9600);
     // Code to Reset the Gripper to Full Open Position
     resetGripper();
 }
@@ -104,7 +104,7 @@ void loop() {
       pincer_stepper.rotate(arm2Position);
     }
 
-    if (triggerInput == HIGH && triggerDrop == false) {
+    if (triggerInputPin == HIGH && triggerDrop == false) {
       // Gripper routines
       if (mode == 0) {
         // Default Routine
@@ -123,7 +123,7 @@ void loop() {
       modeDrop = mode;
     }
 
-    if (triggerInput == HIGH && triggerDrop == true) {
+    if (triggerInputPin == HIGH && triggerDrop == true) {
       // Gripper routines
       if (modeDrop == 0) {
         // Default Drop Routine Here
@@ -157,7 +157,12 @@ void setColor(int red, int green, int blue)
 }
 
 void resetGripper() {
-
+  while (limitUpperBarPin == LOW) {
+    pincer_stepper.rotate(-1);
+  }
+  while (limitPincerPin == LOW) {
+    stepper.rotate(-1);
+  }
 }
 
 
